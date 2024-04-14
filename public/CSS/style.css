@@ -1,0 +1,57 @@
+       /* Custom Styles */
+        /* Additional Styles */
+        .search-bar,
+        .winter-image,
+        .kids-image,
+        .men-image,
+        .women-image,
+        .header {
+            transition: transform 0.3s;
+        }
+
+        .search-bar:hover,
+        .winter-image:hover,
+        .kids-image:hover,
+        .men-image:hover,
+        .women-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* Adjust text color and center heading */
+        h1 {
+            text-align: center;
+            color: #333; /* Dark gray color */
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #007bff; /* Blue color */
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Adjust men and women images for mobile screens */
+        @media (max-width: 768px) {
+            .men-image img,
+            .women-image img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+
+        /* Fade-in Animation */
+        .fade-in {
+            opacity: 0;
+            animation: fadeInAnimation 6s forwards;
+        }
+
+        @keyframes fadeInAnimation {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+

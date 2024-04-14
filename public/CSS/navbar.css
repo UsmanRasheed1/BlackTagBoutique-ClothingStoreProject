@@ -1,0 +1,154 @@
+/* Navbar styling */
+.navbar {
+    background-color: #383131 !important; /* Background color */
+    border-bottom: 1px solid #383131; /* Border color */
+    margin-bottom: 20px;
+}
+
+/* Navbar brand/logo styling */
+.navbar-brand {
+    color: #ffffff; /* Text color */
+    font-size: 24px; /* Font size */
+    font-weight: bold; /* Font weight */
+}
+
+/* Navbar toggler button styling */
+.navbar-toggler {
+    border-color: #ffffff; /* Toggle button color */
+}
+
+/* Navbar items styling */
+.navbar-nav .nav-item {
+    margin-right: 10px !important; /* Margin between items */
+}
+
+/* Navbar link styling */
+.navbar-btn {
+    background-color: transparent; /* Background color */
+    border: 2px solid #da2a37; /* Border */
+    border-radius: 5px; /* Border radius */
+    cursor: pointer; /* Cursor */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition effect */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    margin-top: 20px;
+}
+
+/* Navbar button hover effect */
+.navbar-btn:hover {
+    background-color: #383131; /* Background color on hover */
+    color: #ffffff; /* Text color on hover */
+}
+
+/* Search bar styling */
+.search-bar {
+    margin-top: 10px !important; /* Margin top */
+    margin-bottom: 10px !important; /* Margin bottom */
+}
+
+/* Search input styling */
+#searchText {
+    border-radius: 20px; /* Border radius */
+    padding: 8px 15px; /* Padding */
+    width: 250px !important; /* Input width */
+}
+
+/* Search button styling */
+#searchForm button {
+    border-radius: 20px; /* Border radius */
+    margin-left: 10px !important; /* Margin left */
+    padding: 8px 15px; /* Padding */
+}
+
+.navbar-text {
+    /* Add your styling properties here */
+    font-family: 'Arial', sans-serif; /* Font family */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Font weight */
+    color: #ffffff; /* Text color */
+}
+
+.navbar-btn-text {
+    font-family: 'Arial', sans-serif; /* Font family */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Font weight */
+    text-decoration: none; /* Text decoration */
+    color: #da2a37; /* Text color */
+}
+
+/* Navbar button styling */
+.navbar-btn {
+    background-color: #ffffff; /* Background color */
+    border: 2px solid #da2a37; /* Border */
+    border-radius: 5px; /* Border radius */
+    padding: 8px 15px !important; /* Padding */
+    cursor: pointer; /* Cursor */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition effect */
+}
+
+/* Navbar button hover effect */
+.navbar-btn:hover {
+    background-color: #383131 !important; /* Background color on hover */
+    color: #ffffff !important; /* Text color on hover */
+}
+
+.navbar-collapse {
+    flex-direction: column; /* Stack items vertically */
+}
+
+/* Navbar items styling */
+.navbar-nav .nav-item {
+    margin-right: 0 !important; /* Remove right margin */
+   
+}
+
+.footer {
+    
+    background-color: #3d3c3c !important; /* Metallic gray background color */
+    padding: 20px 0 !important; /* Add padding */
+    text-align: center; /* Center align text */
+    max-height: 200px; /* Set maximum height */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds maximum height */
+    overflow-x: hidden; /* Hide horizontal scroll bar */
+    margin-top: 20px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.footercontainer {
+    padding: 0 10px !important; /* Add padding */
+}
+
+.footer-logo {
+    width: 70px; /* Set width */
+    height: auto; /* Set height to auto for responsiveness */
+    margin: 0 10px 10px 0; /* Adjust margin */
+    float: left; /* Align left */
+}
+
+.footer-text {
+    font-size: 30px; /* Font size */
+    color: #131212; /* Text color */
+    font-family: 'Times New Roman', Times, serif; /* Font family */
+}
+
+.red-text {
+    color: #da2a37; /* Red color */
+}
+
+.footer-made-by,
+.footer-email-link {
+    display: block; /* Ensure elements stack vertically */
+    font-size: 16px; /* Font size */
+    color: #ffffff; /* Text color */
+    margin-top: 10px; /* Add top margin */
+}
+
+.footer-email-link {
+    text-decoration: none; /* Remove underline */
+    color: #da2a37; /* Text color */
+}
+
+.footer-email-link:hover {
+    text-decoration: underline; /* Underline on hover */
+}
