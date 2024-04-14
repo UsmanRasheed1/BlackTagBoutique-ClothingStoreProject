@@ -1,5 +1,7 @@
 The file requires that you have Xampp and Laravel Installed on your device. The project includes a file: project-clothingstore.sql make sure to upload it on MySQL using Xampp. Place the project files in htdocs. 
 
+Use the following video if you're stuck on any step (Credit to the owner): https://youtu.be/9qaiY3ycpwY?si=YWTi1gwOkFc_bxUM
+
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
