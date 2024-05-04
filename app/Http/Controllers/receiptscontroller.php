@@ -23,7 +23,7 @@ class receiptscontroller extends Controller
                 $timestamp = strtotime($receipt->DeliveryDate);
             $formattedDeliveryDate = date('d-F-Y', $timestamp);
             $receipt->formattedDeliveryDate = $formattedDeliveryDate;  
-                $receipt->formattedDeliveryDate;
+             
             }
         return view('/receipts',['receipts' => $receipts,'Name' => $Name, 'email' => $email]);
     }

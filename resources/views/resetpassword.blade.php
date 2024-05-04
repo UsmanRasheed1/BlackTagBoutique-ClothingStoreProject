@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
+    <title>Verification Form</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <!-- Font Awesome CSS -->
@@ -86,6 +86,12 @@
                         </form>
                     </li>
                     <li class="nav-item">
+                        <form id="login" action="/" method="POST" class="nav-link navbar-text ">
+                            @csrf
+                            <button type="submit" class="navbar-btn navbar-btn-text navbar-text">Login</button>
+                        </form>
+                    </li>
+                    <li class="nav-item">
                         <form id="homeForm" action="/homepage" method="POST" class="nav-link navbar-text">
                             @csrf
                             @if(@isset($email))
@@ -155,37 +161,37 @@
     </nav>
     <div class="container login-form-container">
         <div class="login-form">
-            <h1 class="text-center mb-4">Login Form</h1>
-            @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-            @endif
-            @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-            @endif
-            <form method="POST" action="/loginfunc">
-                @csrf
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email <span class="required-symbol">*</span></label>
-                    <input type="email" id="email" name="email" value="{{ old('email') }}" class="form-control" required autocomplete="email">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password <span class="required-symbol">*</span></label>
-                    <input type="password" id="password" name="password" class="form-control" required>
-                </div>
+            <h1 class="text-center mb-4">Reset Password</h1>
+            @if(isset($error))
+    <div class="alert alert-danger">
+        {{ $error }}
+    </div>
+@endif
 
-                
-                  
-                  
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-            <form  action="/forgotpasswordform" method="POST">
-                @csrf
-                <button type="submit" style="color: red; background: none; border: none; text-decoration: underline; cursor: pointer;">Forgot Password?</button>
-              </form>
+    
+<form id="resetForm" method="POST" action="/resetpassword">
+    @csrf
+    <input type="hidden" name="email" value="{{ $email }}">
+    
+    <!-- Password input -->
+    <div class="mb-3">
+        <label for="password" class="form-label">Password <span class="required-symbol">*</span></label>
+        <input type="password" id="password" name="password" class="form-control" required minlength="8">
+    </div>
+
+    <!-- Confirm password input -->
+    <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Confirm Password <span class="required-symbol">*</span></label>
+        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required minlength="8">
+    </div>
+
+    <!-- Error message for password mismatch -->
+    <div id="passwordError" class="alert alert-danger" style="display: none;">
+        Passwords do not match.
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enter Password</button>
+</form>
         </div>
     </div>
 
@@ -200,6 +206,34 @@
             }
             return true; // Allow form submission
         }
+        function validatePassword() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        var passwordError = document.getElementById("passwordError");
+
+        // Regex pattern for password validation
+        var pattern = /^(?=.*[A-Z])(?=.*\d).+$/;
+
+        if (password !== confirmPassword) {
+            passwordError.textContent = "Passwords do not match.";
+            passwordError.style.display = "block";
+            return false; // Prevent form submission
+        } else if (!pattern.test(password)) {
+            passwordError.textContent = "Password must be at least 8 characters long and contain at least one uppercase letter and one digit.";
+            passwordError.style.display = "block";
+            return false; // Prevent form submission
+        } else {
+            passwordError.style.display = "none";
+            return true; // Allow form submission
+        }
+    }
+
+    // Add event listener to form submit for password validation
+    document.getElementById("resetForm").addEventListener("submit", function(event) {
+        if (!validatePassword()) {
+            event.preventDefault(); // Prevent form submission on validation failure
+        }
+    });
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

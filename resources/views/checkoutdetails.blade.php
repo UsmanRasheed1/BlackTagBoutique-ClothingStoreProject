@@ -99,7 +99,7 @@
                 <div class="form-example">Example: Near X</div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Checkout</button>
+            <button type="submit" class="btn btn-primary">Update Checkout Details</button>
             
         </form>
     </div>

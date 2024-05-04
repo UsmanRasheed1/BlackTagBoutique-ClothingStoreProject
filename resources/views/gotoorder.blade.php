@@ -8,7 +8,7 @@
 </head>
 <body>
     <body onload="document.getElementById('autoSubmitForm').submit();">
-        <form id="autoSubmitForm" action="/receipts" method="post">
+        <form id="autoSubmitForm" action="/displayorder" method="post">
             @csrf
           
             <input type="hidden" name="email" value="{{$email}}">

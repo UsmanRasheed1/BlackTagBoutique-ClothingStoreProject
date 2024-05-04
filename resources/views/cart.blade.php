@@ -36,32 +36,39 @@
         }
 
         .item-container {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-            transition: transform 0.3s;
-            background-color: #383131;
-            width: calc(50% - 20px); /* Adjust based on desired number of items per row */
-            max-width: 300px; /* Adjust maximum width of items */
-            margin-bottom: 20px;
-        }
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+        transition: transform 0.3s;
+        background-color: #383131;
+        width: calc(50% - 20px); /* Adjust based on desired number of items per row */
+        max-width: 400px; /* Adjust maximum width of items */
+        margin-bottom: 20px;
+    }
 
-        .item-container:hover {
-            transform: translateY(-5px);
-        }
+    .item-container:hover {
+        transform: translateY(-5px);
+    }
 
-        .item-details {
-            padding: 15px;
-        }
+    .item-details {
+        padding: 15px;
+    }
 
-        .item-image img {
-            max-width: 100%;
-            height: auto;
-            object-fit: cover;
-            max-height: 150px; 
-            /* Adjust height of images */
-        }
-    
+    .item-image img {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+        max-height: 150px; 
+        /* Adjust height of images */
+    }
+
+    .item-heading {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%; /* Ensure the heading doesn't overflow its container */
+        margin-bottom: 5px;
+    }    
 
         .checkbox-container {
             padding: 15px;
@@ -117,7 +124,7 @@
         .btn-success {
             background-color: #28a745;
             color: #fff;
-            border: none;
+            border: 2px solid black;
         }
 
         .btn-success:hover {
@@ -224,7 +231,6 @@
 }
 
 .quantity-btn {
-    padding: 5px 10px; /* Adjust padding as needed */
     width: 40px; /* Ensure width and height are the same for a circular shape */
     height: 40px; /* Ensure width and height are the same for a circular shape */
     font-size: 14px; /* Adjust font size as needed */
@@ -234,6 +240,7 @@
     border: 2px solid black; /* Black border */
     cursor: pointer;
     transition: background-color 0.3s;
+    
 }
 
 .hidden-submit-btn {
@@ -246,6 +253,7 @@
     border: 2px solid black; /* Black border */
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-bottom: 10px;
 }
 
 
@@ -276,38 +284,39 @@
     <h1>Your Cart is currently empty</h1>
     <br><br><br><br><br><br>
 @else
-    @foreach ($cartitems as $cartitem)
-        <div class="item-container">
-            <h4>{{ $cartitem->Clothes_Name }}</h4>
-                <h4>Color: <?php
+@foreach ($cartitems as $cartitem)
+<div class="item-container">
+    <div class="item-details">
+        <h4 class="item-heading" title="{{ $cartitem->Clothes_Name }}">{{ $cartitem->Clothes_Name }}</h4>
+        <h4>Color: <?php
             $textColor = ($cartitem->Color == 'Blue') ? 'LightBlue' : $cartitem->Color;
             echo "<span style='color: $textColor;'>$cartitem->Color</span>";
-            ?></h4>
-                <p>Size {{ $cartitem->Clothesize }}</p>
-                <p>Quantity {{ $cartitem->Quantity }}</p>
-                <p>Price: {{ $cartitem->Price }}</p>
-                <p>Total Price: {{ $cartitem->Total_Price }}</p>
-                <div class="item-image">
-                    <img src="{{ asset('images/' . $cartitem->Picture) }}" alt="Clothes Image" loading="lazy">
-                </div>
-                <div class="checkbox-container">
-                    <input type="checkbox" name="Orderid" value="{{ $cartitem->Orderid }}">
-                </div>
-                <div class="quantity-section">
-                    <button class="quantity-btn minus-btn">-</button>
-                    <span class="quantity">{{ $cartitem->Quantity }}</span>
-                    <button class="quantity-btn plus-btn">+</button>
-                    <form class="quantity-form" action="/update_quantity" method="POST">
-                        @csrf
-                        <input type="hidden" name="quantity" class="quantity-input" value="{{ $cartitem->Quantity }}">
-                        <input type="hidden" name="Orderid" value="{{ $cartitem->Orderid }}">
-                        <input type="hidden" name="email" value="{{$email}}">
-                        <button type="submit" class="hidden-submit-btn">Update Quantity</button>
-                    </form>
-                </div>
-        </div>
-        
-    @endforeach
+        ?></h4>
+        <p>Size {{ $cartitem->Clothesize }}</p>
+        <p>Quantity {{ $cartitem->Quantity }}</p>
+        <p>Price: {{ $cartitem->Price }}</p>
+        <p>Total Price: {{ $cartitem->Total_Price }}</p>
+    </div>
+    <div class="item-image">
+        <img src="{{ asset('images/' . $cartitem->Picture) }}" alt="Clothes Image" loading="lazy">
+    </div>
+    <div class="checkbox-container">
+        <input type="checkbox" name="Orderid" value="{{ $cartitem->Orderid }}">
+    </div>
+    <div class="quantity-section">
+        <button class="quantity-btn minus-btn">-</button>
+        <span class="quantity">{{ $cartitem->Quantity }}</span>
+        <button class="quantity-btn plus-btn">+</button>
+        <form class="quantity-form" action="/update_quantity" method="POST">
+            @csrf
+            <input type="hidden" name="quantity" class="quantity-input" value="{{ $cartitem->Quantity }}">
+            <input type="hidden" name="Orderid" value="{{ $cartitem->Orderid }}">
+            <input type="hidden" name="email" value="{{$email}}">
+            <button type="submit" class="hidden-submit-btn">Update Quantity</button>
+        </form>
+    </div>
+</div>
+@endforeach
     @endif
 </div>
 

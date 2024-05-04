@@ -11,6 +11,7 @@ use App\Http\Controllers\receiptscontroller;
 use App\Http\Controllers\registercontroller;
 use App\Http\Controllers\checkoutcontroller;
 use App\Http\Controllers\ownercontroller;
+use App\Http\Controllers\mailcontroller;
 use App\Models\user;
 use App\Models\clothes;
 use App\Models\colors;
@@ -53,9 +54,13 @@ route::post('/ownerdisplayaddclothes',[ownercontroller::class,'ownerdisplayaddcl
 route::post('/ownerdisplayremoveclothes',[ownercontroller::class,'ownerdisplayremoveclothes']);
 route::post('/owneraddclothes',[ownercontroller::class,'owneraddclothes']);
 route::post('/ownerremoveclothes',[ownercontroller::class,'ownerremoveclothes']);
-
-
-
+route::post('/displayorder',[cartcontroller::class,'displayorder']);
+route::post('/cancelorder',[cartcontroller::class,'cancelorder']);
+route::post('/mail',[mailcontroller::class,'sendmail']);
+route::any('/forgotpasswordform',[mailcontroller::class,'forgotpasswordform']);
+route::post('/generatecode',[mailcontroller::class,'generatecode']);
+route::post('/verifycode',[mailcontroller::class,'verifycode']);
+route::post('/resetpassword',[mailcontroller::class,'resetpassword']);
 /*Route::middleware(['auth', 'verified'])->group(function () {
     // Routes that require email verification
 });*/

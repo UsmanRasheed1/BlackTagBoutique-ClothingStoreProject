@@ -115,7 +115,7 @@ class cartcontroller extends Controller
         $receipttext .= "Delivering to $Name at Address: " . $checkout_query->Address . ", PhoneNumber: " . $checkout_query->phonenum . ", Comments: " . $checkout_query->Comments;
         receipts::create(['Email' => $email, 'ReceiptText' => $receipttext, 'TotalPrice' => $TotalPrice]);
         my_cart::whereIn('Orderid',$orderIdsArray)->delete();
-        return view('/gotoreceipts',['email' => $email]);
+        return view('/gotoorder',['email' => $email]);
     }
     public function update_quantity(request $request){
         $Orderid = $request->input('Orderid');
@@ -123,6 +123,25 @@ class cartcontroller extends Controller
         my_cart::where('Orderid',$Orderid)->update(['Quantity' => $Quantity]);
         $request->merge(['message' => 'Quantity updated!']);
          return $this->displaycart($request);
+
+    }
+    public function displayorder(request $request){
+         $email = $request->input('email');
+        $receipt = receipts::where('Email',$email)->orderBy('ReceiptID','desc')->first();
+        $timestamp = strtotime($receipt->DeliveryDate);
+            $formattedDeliveryDate = date('d-F-Y', $timestamp);
+            $receipt->formattedDeliveryDate = $formattedDeliveryDate;  
+        return view('/displayorder',['email' => $email,'receipt' => $receipt]);
+    }
+    public function cancelorder(request $request){
+        $email = $request->input('email');
+        $receipt = receipts::where('Email',$email)->orderBy('ReceiptID','desc')->first();
+        $id = $receipt->ReceiptID;
+        receipts::where('ReceiptID',$id)->delete();
+        
+        $request->merge(['message' => 'Your Order has been Cancelled!']);
+         return $this->displaycart($request);
+
 
     }
 }

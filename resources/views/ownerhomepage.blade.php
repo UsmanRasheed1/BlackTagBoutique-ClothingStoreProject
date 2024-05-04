@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Receipts</title>
+    <title>Owner HomePage</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -148,6 +148,53 @@
                 opacity: 1;
             }
         }
+        #slider-container {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            z-index: 1000;
+            width: 20px; /* Set initial width */
+            height: 300px;
+            background-color: rgb(230, 99, 99);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: width 0.3s ease-in-out; /* Added transition for width */
+        }
+
+        #slider-container.active {
+            width: 250px; /* Increased width when active */
+            height: 200px;
+        }        
+
+
+
+#slider-container.active #slider-button {
+    transform: translateX(-100%);
+}
+
+
+
+
+    .heading-link {
+        display: block;
+        padding: 10px;
+        color: #fff;
+        text-decoration: none;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .heading-link:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    #slider-button i {
+    /* Styles for the arrow icon */
+    font-size: 20px; /* Adjust the size as needed */
+    margin-right: 10px; /* Optional: Add spacing between the icon and text */
+}
+
     </style>
 </head>
 <body>
@@ -155,7 +202,7 @@
     @include('component.ownernavbar')
     <h1> Welcome {{$Name}} </h1>
     <div class="homepagecontainer">
-        <h1> User Details </h1>
+        <h1 id="user-details-heading" class="heading">User Details</h1>
            
             <div class="receipt">
                 @foreach($userview as $user)
@@ -170,7 +217,7 @@
     </div>
     <div class="homepagecontainer">
         
-        <h1> Sales Details </h1>
+        <h1 id="sales-details-heading" class="heading" > Sales Details </h1>
             <div class="receipt">
                 <h1 style="color: black;">Highest Spending Customer(s)</h1>
                 <p class="total">Name: {!! $user->{'Full Name'} !!}</p>
@@ -202,7 +249,7 @@
             <hr class="dashed-line">
             </div>
     </div>
-    <div class="homepagecontainer">
+    <div class="homepagecontainer" id="order-details-heading" class="heading">
         <h1> Orders Yet to be Delivered </h1>
             @foreach($OYD as $receipt)
             <div class="receipt">
@@ -225,7 +272,7 @@
         @endforeach
 </div>
 
-<div class="homepagecontainer">
+<div class="homepagecontainer" id="clothes-details-heading" class="heading">
         
     <h1> Clothes Details </h1>
         <div class="receipt">
@@ -293,9 +340,58 @@
 </div>
 </div>
 </div>
-
+<div id="slider-container" class="slider-closed">
+    <!-- Slider button -->
+    <div id="slider-button" class="active">
+        <i class="fas fa-chevron-left"></i> <!-- Arrow icon -->
+    </div>
+    <!-- Anchor links inside the slider -->
+    <a href="#" class="heading-link" data-target="user-details-heading">User Details</a>
+    <a href="#" class="heading-link" data-target="sales-details-heading">Sales Details</a>
+    <a href="#" class="heading-link" data-target="order-details-heading">Order Details</a>
+    <a href="#" class="heading-link" data-target="clothes-details-heading">Clothe Details</a>
+</div>
 @include('component.footer')
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sliderContainer = document.getElementById('slider-container');
+        const sliderButton = document.getElementById('slider-button');
+        const headingLinks = document.querySelectorAll('.heading-link');
+
+        // Toggle slider state
+        function toggleSlider() {
+            sliderContainer.classList.toggle('active');
+            sliderContainer.classList.toggle('slider-open');
+            sliderContainer.classList.toggle('slider-closed');
+            sliderButton.classList.toggle('active'); // Toggle button state
+        }
+
+        // Scroll to target element
+        function scrollToElement(targetId) {
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Handle slider button click
+        sliderButton.addEventListener('click', function () {
+            toggleSlider();
+        });
+
+        // Handle heading link clicks
+        headingLinks.forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                const targetId = this.getAttribute('data-target');
+                scrollToElement(targetId);
+                toggleSlider(); // Close the slider after clicking a link
+            });
+        });
+    });
+</script>
+
 </html>
