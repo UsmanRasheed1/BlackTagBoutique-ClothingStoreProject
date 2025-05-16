@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\clothes;
 use App\Models\colors;
+use App\Models\reviews;
 use Illuminate\Support\Facades\Session;
 
 class productpagecontroller extends Controller
@@ -19,13 +20,18 @@ class productpagecontroller extends Controller
          $clothes_name = $clothes->clothes_name;
          $Price = $clothes->Price;
         $colors = colors::where('Clothesid', $Clothesid)->get();
+        $reviews = reviews::where('Clothesid', $Clothesid)
+                  ->orderBy('reviewdate', 'desc')
+                  ->get();
+
     
         return view('productpage', [
             'email' => $email,
             'Clothesid' => $Clothesid,
             'clothes_name' => $clothes_name,
             'Price' => $Price,
-            'colors' => $colors
+            'colors' => $colors,
+            'reviews' => $reviews
         ]);
     
     }

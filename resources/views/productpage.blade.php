@@ -1,283 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Page</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
-    
-    
-    <style>
-        /* Custom styles for the product page */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            background-image: url('{{ asset("images/background.jpg") }}');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: #ffffff; /* Set text color to white */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link href="{{ asset('css/navbar.css') }}" rel="stylesheet" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('{{ asset("images/background.jpg") }}') center center/cover no-repeat;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        .content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%; /* Set width to 100% */
-            max-width: 800px; /* Limit maximum width */
-            background-color: #383131;
-            box-shadow: 0 0 10px rgba(177, 27, 27, 0.1);
-            padding: 20px;
-            margin-top: 20px; /* Move margin from h2 to content */
-            color: #ffffff; /* Set text color to white */
-        }
+    .content {
+      background-color: #383131;
+      box-shadow: 0 0 10px rgba(177, 27, 27, 0.1);
+      padding: 20px;
+      margin-top: 20px;
+      width: 100%;
+      max-width: 800px;
+      color: #fff;
+    }
 
-        .item {
-            margin-bottom: 30px;
-            border: 5px solid #ddd;
-            padding: 10px;
-            border-radius: 5px;
-        }
+    .item {
+      margin-bottom: 30px;
+      border: 5px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+    }
 
-        .colors-container .item {
-            width: calc(35% - 20px); /* Adjust width and margin for mobile devices */
-            margin-right: 10px;
-            margin-bottom: 10px; /* Add margin bottom */
-            display: inline-block; /* Display items inline */
-        }
+    .colors-container .item {
+      width: calc(35% - 20px);
+      margin-right: 10px;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
 
-        @media (max-width: 500px) {
-            .colors-container .item {
-                width: calc(30% - 10px); /* Adjust width and margin for tablets */
-                margin-right: 10px;
-                margin-bottom: 10px; /* Add margin bottom */
-            }
-        }
+    @media (max-width: 500px) {
+      .colors-container .item {
+        width: calc(30% - 10px);
+      }
+    }
 
-        @media (max-width: 450px) {
-            .colors-container .item {
-                width: calc(80% - 20px); /* Adjust width for mobile devices */
-                margin-right: 0;
-                margin-bottom: 10px; /* Add margin bottom */
-            }
-        }
+    @media (max-width: 450px) {
+      .colors-container .item {
+        width: calc(80% - 20px);
+        margin-right: 0;
+      }
+    }
 
-        .colors-container input[type="radio"] {
-            display: none; /* Hide the radio buttons */
-        }
+    .colors-container input[type="radio"] {
+      display: none;
+    }
 
-        .colors-container label {
-            display: block;
-            position: relative;
-            cursor: pointer;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            padding: 5px;
-            margin-bottom: 10px;
-            color: #ffffff; /* Set text color to white */
-        }
+    .colors-container label {
+      display: block;
+      position: relative;
+      cursor: pointer;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 5px;
+      color: #fff;
+    }
 
-        .colors-container label img {
-            width: 100%;
-            height: auto;
-            border-radius: 3px;
-            border: 1px solid #ddd;
-        }
+    .colors-container label img {
+      width: 100%;
+      border-radius: 3px;
+      border: 1px solid #ddd;
+      opacity: 0.5;
+      transform: scale(0.8);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
 
-        p.text-muted {
-            font-weight: bold; /* Make the price text bolder */
-            text-align: center; /* Center align price text */
-            color: #ffffff; /* Set text color to white */
-        }
+    .colors-container input[type="radio"]:checked + label img {
+      border: 3px solid black;
+      opacity: 1;
+      transform: scale(0.9);
+    }
 
-        /* Customizing form elements and buttons */
-        input[type="number"],
-        input[type="submit"],
-        select,
-        .btn {
-            background-color: #dc2d3a; /* Custom background color */
-            color: #fff; /* Custom text color */
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    .input-container {
+      margin-bottom: 15px;
+      text-align: center;
+    }
 
-        input[type="number"]:hover,
-        input[type="submit"]:hover,
-        select:hover,
-        .btn:hover {
-            background-color: #e08696; /* Custom background color on hover */
-        }
+    .input-container label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #fff;
+    }
 
-        input[type="number"],
-        select {
-            width: 60%; /* Reduced width for quantity and size inputs */
-            box-sizing: border-box;
-        }
+    .input-container input[type="number"],
+    .input-container select {
+      width: 20%;
+      padding: 8px;
+      margin: 0 auto;
+    }
 
-        .btn {
-            width: 100%; /* Full width for the Add to Cart button */
-        }
-        
-        .color-label {
-            display: flex;
-            align-items: center;
-            position: relative;
-            cursor: pointer;
-        }
+    .btn {
+      background-color: #dc2d3a;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-        .radio-circle {
-            margin-right: 10px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 2px solid rgb(255, 255, 255);
-        }
+    .btn:hover {
+      background-color: #e08696;
+    }
 
-        .color-radio:checked + .color-label .radio-circle {
-            background-color: #e03367;
-            border-color: #f7f7f7;
-            
-        }
+    .btn:focus,
+    .btn:active {
+      background-color: #991d27 !important;
+    }
 
-        .colors-container label img {
-            width: 100%;
-            height: auto;
-            border-radius: 3px;
-            border: 1px solid #ddd;
-            opacity: 0.5; /* Make the original image opaque */
-            transform: scale(0.8); /* Scale down the original image */
-            transition: opacity 0.3s ease, transform 0.3s ease; /* Add transition for opacity and transform */
-        }
+    .radio-circle {
+      margin-right: 10px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
 
-        .colors-container input[type="radio"]:checked + label img {
-            border: 3px solid rgb(0, 0, 0);
-            opacity: 1; /* Make the selected image fully opaque */
-            transform: scale(0.9); /* Return the selected image to its original size */
-        }
+    .color-radio:checked + .color-label .radio-circle {
+      background-color: #e03367;
+      border-color: #f7f7f7;
+    }
 
-        .input-container input[type="number"],
-        .input-container select {
-            width: 40%; /* Adjust the width of the input/select */
-            box-sizing: border-box;
-            padding: 8px; /* Adjust padding for input/select */
-        }
+    #reviewModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
 
-        .input-container label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px; /* Dynamic color */
-            color: #ffffff; /* Set text color to white */
-        }
+    #reviewModal .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 400px;
+      max-width: 90%;
+    }
 
-        /* Customizing form elements and buttons */
-        .input-container {
-            margin-bottom: 15px;
-            text-align: center; /* Center align the content within input-container */
-        }
-
-        .input-container input[type="number"],
-        .input-container select {
-            width: 20%; /* Adjust the width of the input/select */
-            box-sizing: border-box;
-            padding: 8px; /* Adjust padding for input/select */
-            margin: 0 auto; /* Center align input/select */
-        }
-
-        .btn {
-            background-color: #dc2d3a; /* Custom background color */
-            color: #fff; /* Custom text color */
-            border: none;
-            padding: 10% 20%;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            display: inline-block;
-            width: auto; /* Adjust width to fit content */
-            margin: 0 auto; /* Center align the button */
-        }
-
-        .btn:hover {
-            background-color: #e08696; /* Custom background color on hover */
-        }
-        .btn:focus,
-.btn:active {
-    background-color: #991d27 !important; /* Revert back to original color on click */
+    .receipt {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: black;
+}
+.receipt p {
+  margin: 5px 0;
+}
+.receipt hr {
+  margin: 10px 0;
+  border: none;
+  border-top: 1px dashed #ccc;
+}
+.receipt .total {
+  font-weight: bold;
+}
+hr.dashed-line {
+  border: none;
+  border-top: 4px dashed rgb(0, 0, 0);
+  height: 0;
+  margin: 20px 0;
 }
 
-
-    </style>
+  </style>
 </head>
-@include('component.navbar')
 <body>
-    
-    <div class="container">
-        <h2 style="color: #ffffff; margin-bottom: 10px;">{{ $clothes_name }}</h2>
-        <div class="content">
-            <form action="/addtocart" method="post">
-                @csrf
-                <div class="form-group input-container">
-                    <label for="color" style="color: #dc3545;">Select Color:</label>
-                    <div class="colors-container">
-                        @foreach ($colors as $color)
-                        <div class="item">
-                            <input type="radio" name="color" value="{{ $color->Color }}" id="{{ $color->Color }}" class="color-radio">
-                            <label for="{{ $color->Color }}" class="color-label" style="color: {{ $color->Color === 'Blue' ? 'LightBlue' : $color->Color }};">
-                                <div class="radio-circle"></div>
-                                <img src="{{ asset('images/' . $color->picture) }}" alt="{{ $color->Color }}" class="img-fluid color-image" loading="lazy">
-                                {{ $color->Color }}
-                            </label>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="form-group input-container">
-                    <label for="size" style="color: #dc3545;">Select Size:</label>
-                    <select id="size" name="size" class="form-control size-button">
-                        <option value="XS">XS</option>
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                        <option value="XL">XL</option>
-                    </select>
-                </div>
-                <div class="form-group input-container">
-                    <label for="quantity" style="color: #dc3545;">Quantity:</label>
-                    <input type="number" id="quantity" name="quantity" min="1" max="100" value="1" class="form-control quantity-input">
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Add to Cart" class="btn btn-primary btn-block">
-                </div>
-                <input type="hidden" name="email" value="{{ $email }}">
-                <input type="hidden" name="Clothesid" value="{{ $Clothesid }}">
-                <input type="hidden" name="clothes_name" value="{{ $clothes_name }}">
-                <input type="hidden" name="Price" value="{{ $Price }}">
-            </form>
+@include('component.navbar')
+
+<div class="container">
+  <h2 style="color: #fff; margin-bottom: 10px;">{{ $clothes_name }}</h2>
+  <div class="content">
+    <form action="/addtocart" method="POST">
+      @csrf
+
+      <div class="form-group input-container">
+        <label for="color" style="color: #dc3545;">Select Color:</label>
+        <div class="colors-container">
+          @foreach ($colors as $color)
+          <div class="item">
+            <input type="radio" name="color" value="{{ $color->Color }}" id="{{ $color->Color }}" class="color-radio">
+            <label for="{{ $color->Color }}" class="color-label" style="color: {{ $color->Color === 'Blue' ? 'LightBlue' : $color->Color }};">
+              <div class="radio-circle"></div>
+              <img src="{{ asset('images/' . $color->picture) }}" alt="{{ $color->Color }}" class="img-fluid" loading="lazy">
+              {{ $color->Color }}
+            </label>
+          </div>
+          @endforeach
         </div>
+      </div>
+
+      <div class="form-group input-container">
+        <label for="size" style="color: #dc3545;">Select Size:</label>
+        <select id="size" name="size" class="form-control">
+          <option value="XS">XS</option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+        </select>
+      </div>
+
+      <div class="form-group input-container">
+        <label for="quantity" style="color: #dc3545;">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" max="100" value="1" class="form-control">
+      </div>
+
+      <div class="form-group d-flex justify-content-center gap-2 flex-wrap">
+        <input type="submit" value="Add to Cart" class="btn btn-primary">
+        <button type="button" id="openReviewBtn" class="btn btn-primary">Write a Review</button>
+      </div>
+
+      <input type="hidden" name="email" value="{{ $email }}">
+      <input type="hidden" name="Clothesid" value="{{ $Clothesid }}">
+      <input type="hidden" name="clothes_name" value="{{ $clothes_name }}">
+      <input type="hidden" name="Price" value="{{ $Price }}">
+    </form>
+
+    <!-- Review Modal -->
+    <div id="reviewModal">
+      <div class="modal-content">
+        <h3>Write a Review</h3>
+        <form id="reviewForm" method="POST" action="/submitareview">
+          @csrf
+          <input type="hidden" name="Clothesid" value="{{ $Clothesid }}">
+          <input type="hidden" name="email" value="{{ $email }}">
+          <div class="form-group">
+            <textarea name="review" rows="4" class="form-control" placeholder="Write your review here..." required></textarea>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-success">Submit Review</button>
+          <button type="button" id="closeReviewBtn" class="btn btn-secondary">Cancel</button>
+        </form>
+      </div>
     </div>
-    @include('component.footer')
-    <!-- Include Bootstrap JS -->
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script>
-       window.onload = function() {
-            // Mark the first radio button as checked by default
-            document.querySelector('.color-radio').checked = true;
-        };
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  </div>
+</div>
+
+
+
+@if ($reviews && $reviews->isNotEmpty())
+<div class="container">
+  <div class="content">
+    <h3 class="mt-4" style="color: #fff;">Customer Reviews</h3>
+
+    @php
+        $groupedReviews = $reviews->groupBy('sentiment');
+    @endphp
+
+    @foreach (['Positive' => 'Positive Reviews', 'Neutral' => 'Neutral Reviews', 'Negative' => 'Negative Reviews'] as $sentiment => $label)
+      @if ($groupedReviews->has($sentiment))
+        <h4 style="color: #ffc107; margin-top: 20px;">{{ $label }}</h4>
+        @foreach ($groupedReviews[$sentiment] as $review)
+          <div class="receipt">
+            <p><strong>User:</strong> {{ $review->email }}</p>
+            <p><strong>Review:</strong> {{ $review->reviewtext }}</p>
+            <hr class="dashed-line">
+            <p class="total"><strong>Date:</strong> {{ \Carbon\Carbon::parse($review->reviewdate)->format('F j, Y, g:i a') }}</p>
+          </div>
+        @endforeach
+      @endif
+    @endforeach
+  </div>
+</div>
+@endif
+
+
+@include('component.footer')
+
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+  window.onload = function () {
+    const radios = document.querySelectorAll('.color-radio');
+    if (radios.length > 0) radios[0].checked = true;
+  };
+
+  const openBtn = document.getElementById('openReviewBtn');
+  const closeBtn = document.getElementById('closeReviewBtn');
+  const modal = document.getElementById('reviewModal');
+
+  openBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    modal.style.display = 'flex';
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target == modal) {
+      modal.style.display = 'none';
+    }
+  });
+</script>
 </body>
 </html>

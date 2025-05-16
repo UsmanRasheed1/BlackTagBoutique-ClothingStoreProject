@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <!-- Navbar brand/logo -->
         <a class="navbar-brand" href="#">
-            <img src= "{{ asset('images/Logo2.jpeg') }}" alt="Your Logo" height="100" loading="lazy">
+            <img src= "{{ asset('images/Logo2.png') }}" alt="Your Logo" height="100" loading="lazy">
         </a>
 
         <!-- Navbar toggler button for small screens -->
