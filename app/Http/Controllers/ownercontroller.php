@@ -9,6 +9,8 @@ use App\Models\customer_receipts;
 use App\Models\user_view;
 use App\Models\clothes;
 use App\Models\colors;
+use App\Models\clothes_reviews;
+use App\Models\reviews;
 use Illuminate\Support\Facades\DB;
 
 
@@ -118,11 +120,17 @@ class ownercontroller extends Controller
                   ->get();
         $userview = user_view::get();
 
+        $reviewsview = clothes_reviews::orderBy('reviewdate', 'desc')
+                  ->get();
+
+        $positive = reviews::where('sentiment', 'Positive')->count();
+        $negative =  reviews::where('sentiment', 'Negative')->count();
+        $neutral =  reviews::where('sentiment', 'Neutral')->count();
 
 
             return view('ownerhomepage', ['email' => $email, 'Name' => $Name,'OYD' => $OYD,'OSD' => $OSD, 'clothes' => $clothes,
              'userview' => $userview, 'clmin' => $clmin, 'clmax' => $clmax, 'clcount' => $clcount, 'clrcount' => $clrcount, 'clsum' => $clsum, 
-            'clavg' => $clavg, 'rcptcount' => $rcptcount, 'rcptsum' => $rcptsum, 'rcptavg' => $rcptavg,'HSC' => $HSC, 'HTSC' => $HTSC,'FC' => $FC]);
+            'clavg' => $clavg, 'rcptcount' => $rcptcount, 'rcptsum' => $rcptsum, 'rcptavg' => $rcptavg,'HSC' => $HSC, 'HTSC' => $HTSC,'FC' => $FC, 'reviews' => $reviewsview, 'positive' => $positive, 'negative' => $negative, 'neutral' =>$neutral]);
     
         }
 

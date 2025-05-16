@@ -155,7 +155,7 @@
             transform: translateY(-50%);
             z-index: 1000;
             width: 20px; /* Set initial width */
-            height: 300px;
+            height: 400px;
             background-color: rgb(230, 99, 99);
             border-radius: 10px;
             overflow: hidden;
@@ -165,7 +165,7 @@
 
         #slider-container.active {
             width: 250px; /* Increased width when active */
-            height: 200px;
+            height: 250px;
         }        
 
 
@@ -340,6 +340,42 @@
 </div>
 </div>
 </div>
+<div class="homepagecontainer" id='reviews-heading' class="heading">
+        <h1> Reviews </h1>
+</div>
+ <div class="homepagecontainer"  class="heading">
+              <div class="content">
+                
+            <h3 class="mt-4" style="color: #08ff08;"> Total Positive Reviews: {{ $positive }}</h3>
+            <h3 class="mt-4" style="color: #f56b6b;">Total Negative Reviews: {{ $negative }}</h3>
+             <h3 class="mt-4" style="color: #a699f0;">Total Neutral Reviews: {{ $neutral }}</h3>
+
+    <h3 class="mt-4" style="color: #fff;">Customer Reviews</h3>
+
+    @php
+        $groupedReviews = $reviews->groupBy('sentiment');
+    @endphp
+
+    @foreach (['Positive' => 'Positive Reviews', 'Neutral' => 'Neutral Reviews', 'Negative' => 'Negative Reviews'] as $sentiment => $label)
+      @if ($groupedReviews->has($sentiment))
+        <h4 style="color: #ffc107; margin-top: 20px;">{{ $label }}</h4>
+        @foreach ($groupedReviews[$sentiment] as $review)
+          <div class="receipt">
+            <p><strong>User:</strong> {{ $review->email }}</p>
+            <p><strong>Review:</strong> {{ $review->reviewtext }}</p>
+             <p><strong>Clothing:</strong> {{ $review->clothes_name }}</p>
+            <hr class="dashed-line">
+            <p class="total"><strong>Date:</strong> {{ \Carbon\Carbon::parse($review->reviewdate)->format('F j, Y, g:i a') }}</p>
+          </div>
+        @endforeach
+      @endif
+    @endforeach
+  </div>
+
+    </div>
+   
+
+
 <div id="slider-container" class="slider-closed">
     <!-- Slider button -->
     <div id="slider-button" class="active">
@@ -350,6 +386,7 @@
     <a href="#" class="heading-link" data-target="sales-details-heading">Sales Details</a>
     <a href="#" class="heading-link" data-target="order-details-heading">Order Details</a>
     <a href="#" class="heading-link" data-target="clothes-details-heading">Clothe Details</a>
+    <a href="#" class="heading-link" data-target="reviews-heading">Reviews</a>
 </div>
 @include('component.footer')
 
